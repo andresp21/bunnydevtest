@@ -11,7 +11,7 @@
 <h1>Hello there Bunny Team! Here's my dev test!</h1>
 
 The top trending article on Reddit right now is: <br/>
-<h3>"<s:property value="trendiestArticleTitle"/>"</h3>
+<h3><s:a href="%{trendiestArticleLink}" target="_blank">"<s:property value="trendiestArticleTitle"/>"</s:a></h3>
 
 <s:form action="addspeedy">
 Now click the button below to create a new 'speedy' project for this article on VoiceBunny!

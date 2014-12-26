@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.bunny.devtest.util.MyHttpClient;
+import com.bunny.model.bo.TrendyArticle;
 
 /**
  * @author AndresPachon
@@ -13,9 +14,10 @@ public class RedditService {
 	
 	private static final String REDDIT_API_ENDPOINT = "http://www.reddit.com/.json";
 	
-	public static String getTrendyArticle(){
+	public static TrendyArticle getTrendyArticle(){
 		
-		String trendiestArticleTitle = null;
+		TrendyArticle article = new TrendyArticle();
+		
 		try {
 			
 			//1) Make call to Reddit's API
@@ -24,11 +26,12 @@ public class RedditService {
 				
 				//2) Parse JSON, extract title from most popular article.
 				JSONObject mainJsonObject = new JSONObject(jsonFromReddit);
-				trendiestArticleTitle = ((((JSONObject) mainJsonObject.getJSONObject("data")).getJSONArray("children")).getJSONObject(0)).getJSONObject("data").getString("title");
+				article.setTitle(((((JSONObject) mainJsonObject.getJSONObject("data")).getJSONArray("children")).getJSONObject(0)).getJSONObject("data").getString("title"));
+				article.setLink(((((JSONObject) mainJsonObject.getJSONObject("data")).getJSONArray("children")).getJSONObject(0)).getJSONObject("data").getString("url"));
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return trendiestArticleTitle;
+		return article;
 	}
 }
